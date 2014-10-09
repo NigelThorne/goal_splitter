@@ -1,0 +1,12 @@
+h1 Loving Slim
+
+div
+  - @state && @state.goals.each do |goal|
+    div
+      ==  partial :goal, {goal:goal}
+      
+div.add_goal_form
+  form action="goals" method="post"
+    | Name:
+    input type="text" name="name"
+    br

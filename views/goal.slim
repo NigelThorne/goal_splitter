@@ -1,0 +1,6 @@
+div
+  = goal.name
+- if goal.goals && !goal.goals.empty?
+  ul
+    - goal.goals.each do |child|
+      ==  partial :goal, {goal:child}
