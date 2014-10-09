@@ -1,6 +1,21 @@
 doctype html
 html
   head
-    title Story Splitter
+    meta http-equiv="Content-type" content="text/html; charset=UTF-8" 
+    title Nigel Thorne's - Story Splitter
+    meta http-equiv="Content-Language" content="en-us" 
+    meta http-equiv="imagetoolbar" content="no" 
+    meta name="MSSmartTagsPreventParsing" content="true" 
+    meta name="description" content="Description" 
+    meta name="keywords" content="Keywords" 
+    meta name="author" content="Enlighten Designs" 
+    link rel="stylesheet" media="all" type="text/css" href="/css/style.css"
   body
-    == yield
+    h1#app_title Goal Splitter
+    div#page-container
+      == yield
+      
+    div
+      form action="reset" method="post"
+        input type="submit" value="Reset"
+    

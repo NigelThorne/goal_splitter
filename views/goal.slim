@@ -1,6 +1,11 @@
-div
-  = goal.name
-- if goal.goals && !goal.goals.empty?
-  ul
-    - goal.goals.each do |child|
-      ==  partial :goal, {goal:child}
+tr.goal
+  td.parent
+    -if goal.parent
+      a src=""
+        = goal.parent.name
+  td.goal
+    p.goal_name = goal.name
+  td.sub_goals
+      ul
+        - goal.goals.each do |child|
+          li = child.name

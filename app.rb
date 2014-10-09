@@ -26,18 +26,21 @@ class CoffeeHandler < Sinatra::Base
 end
 
 class State
-  attr_reader :goals
+  attr_accessor :goals, :active
   def initialize
     @goals = []
   end  
+
 end
 
 class Goal
-  attr_accessor :name, :description, :goals
-  def initialize(name, description)
-    @name = name; @description = description
+  attr_accessor :name, :description, :goals, :parent
+  def initialize(name, parent = nil)
+    @name = name
     @goals = [];
+    @parent = parent;
   end
+  
 end
 
 class MyApp < Sinatra::Base
@@ -57,15 +60,54 @@ class MyApp < Sinatra::Base
     end
   end
   
-  @@state ||= State.new()
+  @@state ||= State.new() # keep state between reloads.
+  
+  post '/reset' do
+    @state.goals =  to_goals( 
+      {
+        "Goal planner" => {
+          "Web front end" => {
+            "Show goals" => {},
+            "Add subgoal / Chunk down" => {},
+            "Add alternatives / Chunk across" => {},
+            "Navigate to parent / Chunk up" => {},
+            "Navigate to child / Chunk down" => {},
+          },
+          "Persistance" => {
+            "Options" => {
+              "Save to filesystem" => {},
+              "Save to database" => {},
+            },
+          },
+          "Published to octohost" => {},
+          "Multiple Projects" => {},
+          "Multiple Users" => {},
+        },
+      }
+    )
+    @state.active = @state.goals.dup
+    redirect "/"
+  end  
   
   get '/' do
     slim :index
   end
 
   post '/goals' do
-    @state.goals << Goal.new(params[:name],"")
+    g = Goal.new(params[:name])
+    @state.goals << g
+    @state.active << g
     redirect "/"
   end
+  
+  def to_goals(hash, parent = nil)
+    hash.to_a.map{ |k,v| 
+      g = Goal.new(k, parent)
+      g.goals = to_goals(v, g)
+      g
+    }
+  end
+  
+ 
 end
 

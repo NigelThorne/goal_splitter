@@ -1,0 +1,74 @@
+$font-stack:    Helvetica, sans-serif
+$primary-color: #333
+$border-margin: 50px
+
+
+/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ 
+@font-face
+  font-family: "Anime Ace 2.0 BB Italic"
+  src: url("/fonts/animeace2_ital.eot?")
+  src: url("/fonts/animeace2_ital.eot?") format("eot"), url("/fonts/animeace2_ital.woff") format("woff"), url("/fonts/animeace2_ital.ttf") format("truetype"), url("/fonts/animeace2_ital.svg#AnimeAce2.0BB-Italic") format("svg")  
+  font-weight:normal
+  font-style:normal
+
+=stroke($width, $color)
+  $width: $width + 0
+  $shadow: 0 0 0 transparent
+  $i: 0
+  $w: 1
+  
+  @while ($i < $width) 
+    $i: $i + 1
+    $j: 0
+    $w: $w + 2
+
+  @for $r from 1 through $w 
+    @for $c from 1 through $w 
+      $x: $c - ceil($w / 2)
+      $y: $r - ceil($w / 2)
+
+      $shadow: #{$shadow}, #{$x}px #{$y}px 0 $color
+  
+  text-shadow: $shadow
+
+html, body 
+  margin: 0
+  padding: 0
+  background: #ccf
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+
+#app_title
+  font-family: "Anime Ace 2.0 BB Italic"
+  +stroke(1px, black)
+  font-size: 300%
+  color: white
+  margin: auto
+  width: 760px
+  margin-top: 20px
+  margin-bottom: 20px
+
+#page-container
+  width: 760px
+  margin: auto
+  margin-top: 10px
+  margin-bottom: $border-margin
+  background: white
+  padding-left: 20px
+  padding-right: 20px
+  padding-top: 1px
+  padding-bottom: 1px
+  border-radius: 5px
+  border: 1px solid black
+  
+
+#add_goal_form
+  border-radius: 5px
+  padding: 10px
+  background-color: #ccf  
+  border: 1px solid #aaa
+  margin: 10px
+  input
+    margin-left: 10px
