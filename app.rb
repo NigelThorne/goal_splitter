@@ -46,6 +46,7 @@ end
 class MyApp < Sinatra::Base
   def initialize
     @state = @@state
+    @state.active = @state.goals.dup
     super
   end
 

@@ -28,7 +28,15 @@ $border-margin: 50px
       $y: $r - ceil($w / 2)
 
       $shadow: #{$shadow}, #{$x}px #{$y}px 0 $color
-  
+   
+  @for $r from 1 through $w 
+    @for $c from 1 through $w 
+      $x: $c 
+      $y: $r
+
+      $shadow: #{$shadow}, #{$x}px #{$y}px 0 $color
+
+
   text-shadow: $shadow
 
 html, body 
@@ -42,13 +50,14 @@ body
 
 #app_title
   font-family: "Anime Ace 2.0 BB Italic"
-  +stroke(1px, black)
+  +stroke(2px, black)  
   font-size: 300%
   color: white
   margin: auto
   width: 760px
   margin-top: 20px
   margin-bottom: 20px
+  padding-top: 0.5em
 
 #page-container
   width: 760px
